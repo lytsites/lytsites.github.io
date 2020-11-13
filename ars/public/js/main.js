@@ -32,7 +32,7 @@ function generateMap () {
 				});
 			}
 			else if (e.get('type') == 'click') {
-				$('#myModal .modal-body').load('/terrains/terrain-' + objectId + '.html');
+				$('#myModal .modal-body').load('/ars/terrains/terrain-' + objectId + '.html');
 				$('#myModal').modal();
 				// console.log()
 			}
@@ -51,7 +51,7 @@ function generateMap () {
 				});
 			}
 			else if (e.get('type') == 'click') {
-				$('#myModal .modal-body').load('/terrains/terrain-' + objectId + '.html');
+				$('#myModal .modal-body').load('/ars/terrains/terrain-' + objectId + '.html');
 				// $('#myModal').modal();
 				// console.log()
 			}
