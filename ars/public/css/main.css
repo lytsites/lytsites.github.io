@@ -319,7 +319,7 @@ button.close {
 
 }
 
-@media screen and (max-width: 360px) {
+@media screen and (max-width: 375px) {
 	.terrain-img img {
 		width: 300px;
 		height: 200px;
