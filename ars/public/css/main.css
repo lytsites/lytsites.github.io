@@ -275,8 +275,8 @@ h6 {
 }
 
 .terrain-img img {
-	width: 500px;
-	height: 300px;
+	width: 500px !important;
+	height: 300px !important;
 }
 
 .terrain-img {
@@ -297,7 +297,7 @@ button.close {
 }
 
 @media screen and (max-width: 480px) {
-	.terrain-img {
+	.terrain-img img {
 		width: 300px;
 		height: 200px;
 		margin: auto;
