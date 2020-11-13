@@ -298,7 +298,7 @@ button.close {
 
 @media screen and (max-width: 480px) {
 	.terrain-img img {
-		width: 300px;
+		width: 460px;
 		height: 200px;
 		margin: auto;
 	}
@@ -311,7 +311,7 @@ button.close {
 
 @media screen and (max-width: 360px) {
 	.terrain-img img {
-		width: 300px;
+		width: 340px;
 		height: 200px;
 		margin: auto;
 	}
