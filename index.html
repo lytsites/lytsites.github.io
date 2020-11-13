@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>LytSites &bull; LytMap</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/public/css/main.css">
+</head>
+<body>
+	<div class="wrapper">
+		<div class="container">
+			<div class="map">
+				<div class="inner-map shadow-lg">
+					<div id="map" style="width: 1200px; height: 600px"></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="myModal">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+
+					<div class="modal-header">
+						<h4 class="modal-title">Местность</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+
+					<div class="modal-body"></div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script src="https://api-maps.yandex.ru/2.1/?apikey=2bf609a4-4114-4466-869f-d71e32da7701&lang=ru_RU" type="text/javascript"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script src="/public/js/main.js"></script>
+
+</body>
+</html>
