@@ -255,6 +255,14 @@ h6 {
 	opacity: .8;
 }
 
+#map {
+	position: absolute;
+	left: 10px;
+	top: 10px;
+	right: 10px;
+	bottom: 10px;
+}
+
 .terrain {
 	/*min-height: 100vh;*/
 	/*color: #eee;*/
@@ -287,4 +295,17 @@ button.close {
 
 .modal-dialog.modal-lg {
 	max-width: 1000px !important;
+}
+
+@media screen and (max-width: 480px) {
+	.terrain-img {
+		width: 300px;
+		height: 200px;
+		margin: auto;
+	}
+
+	.terrain {
+		flex-direction: column;
+	}
+
 }
