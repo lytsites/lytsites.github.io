@@ -274,10 +274,9 @@ h6 {
 	/*flex-direction: row-reverse;*/
 }
 
-.terrain-img {
+.terrain-img img {
 	width: 500px;
 	height: 300px;
-	background: #ccc;
 }
 
 .terrain-img {
