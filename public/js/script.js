@@ -39,6 +39,10 @@ function generation () {
 
 $(document).ready(function () {
 
+	$('body').css({
+		'visibility': 'visible',
+	})
+
 	bool = false;
 
 	for (i = 1; i <= 8; i++) {

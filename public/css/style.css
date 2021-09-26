@@ -5,6 +5,7 @@
 }
 
 body {
+	visibility: hidden;
 	background: #E6E6E6;
 }
 
@@ -35,11 +36,8 @@ body {
 }
 
 .game-box {
-	/*width: 70px;*/
-	/*height: 70px;*/
 	background: #EFE3D0;
 	border-radius: 3px;
-	/*visibility: hidden;*/
 	transition: .3s ease;
 	cursor: pointer;
 	position: relative;
@@ -55,10 +53,6 @@ body {
 
 .game-box:hover {
 	background: #CCBCA3;
-}
-
-.game-box.active {
-	visibility: visible;
 }
 
 .side-options {
