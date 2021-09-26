@@ -9,6 +9,11 @@ body {
 	background: #E6E6E6;
 }
 
+.wrapper {
+	display: flex;
+	justify-content: space-around;
+}
+
 .game-area {
 	margin: 0 auto;
 	background: #87A8A4;
@@ -56,10 +61,12 @@ body {
 }
 
 .side-options {
-	position: absolute;
 	font-size: 20px;
 	font-weight: 600;
 	margin: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
 
 .side-options button {
@@ -75,4 +82,14 @@ body {
 
 .side-options button:hover {
 	background: #BF2E57;
+}
+
+.game-information {
+	font-weight: 100;
+}
+
+.logo {
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
 }

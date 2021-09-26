@@ -64,6 +64,10 @@ $(document).ready(function () {
 	aHeight = $(window).outerHeight();
 	aWidth = aHeight;
 
+	$('.side-options').css({
+		'width': ($(window).outerWidth() - aWidth) / 2 - 50,
+	})
+
 	$('.game-area').css({
 		'width': aWidth,
 		'height': aHeight,
