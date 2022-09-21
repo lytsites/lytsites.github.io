@@ -126,7 +126,7 @@ $('.start').on('click', function () {
 	var game = new Phaser.Game(config);
 
 	function preload() {
-		this.load.setBaseURL('http://asyky');
+		this.load.setBaseURL('https://lytsites.github.io');
 
 		this.load.image('background', 'img/background.png');
 		this.load.image('player', 'img/player_' + localStorage.getItem('player') + '.png',);
