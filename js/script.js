@@ -3,7 +3,7 @@ $(document).ready(function () {
 })
 
 if (!localStorage.getItem('player')) {
-	localStorage.setItem('player') = 1;
+	localStorage.setItem('player', 1);
 }
 
 setTimeout(function () {
