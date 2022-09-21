@@ -1,3 +1,11 @@
+$(document).ready(function () {
+	$('body').css('display', 'block')
+})
+
+if (!localStorage.getItem('player')) {
+	localStorage.getItem('player') = 1;
+}
+
 setTimeout(function () {
 	$('.load-screen').closest('.screen-wrap').css('display', 'none');
 	$('.set-lang-screen').closest('.screen-wrap').css('display', 'block');

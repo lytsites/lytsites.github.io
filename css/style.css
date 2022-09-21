@@ -10,6 +10,10 @@
 	font-family: 'Bahnschrift';
 }
 
+body {
+	display: none;
+}
+
 canvas {
 	position: absolute;
 }
