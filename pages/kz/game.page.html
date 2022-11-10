@@ -104,6 +104,7 @@ function create() {
 	arrow.displayHeight = 100;
 
 	// Text
+	if (!localStorage.getItem('name')) localStorage.getItem('name') = '000';
 	if (localStorage.getItem('language') == 'ru') {
 		scoreText = this.add.text(0, 0, localStorage.getItem('name') + ', ваш счёт: ' + score);
 	}
@@ -112,6 +113,9 @@ function create() {
 	}
 	else if (localStorage.getItem('language') == 'en') {
 		scoreText = this.add.text(0, 0, localStorage.getItem('name') + ', your score: ' + score);
+	}
+	else {
+		scoreText = this.add.text(0, 0, localStorage.getItem('name') + ', ваш счёт: ' + score);
 	}
 
 	this.input.keyboard.on('keydown', function (event) {
@@ -172,6 +176,9 @@ function update() {
 	}
 	else if (localStorage.getItem('language') == 'en') {
 		scoreText.setText(localStorage.getItem('name') + ', your score: ' + score);
+	}
+	else {
+		scoreText.setText(localStorage.getItem('name') + ', ваш счёт: ' + score);
 	}
 
 	if (move) {
