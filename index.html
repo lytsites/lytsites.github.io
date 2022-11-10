@@ -3,73 +3,20 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="css/style.css">
-	<link rel="preload" as="font" href="ttf/Bahnschrift.ttf" type="font/ttf" />
+	<link rel="stylesheet" href="assets/css/style.css">
 	<title>Асық ату</title>
 </head>
 <body>
 
-	<div class="container">
-		<div class="screen-wrap">
-			<div class="load-screen">
-				<div class="logo"></div>
-			</div>
-		</div>
-		<div class="screen-wrap">
-			<div class="set-lang-screen">
-				<button id="kz">Қазақ</button>
-				<button id="ru">Русский</button>
-				<button id="en">English</button>
-			</div>
-		</div>
-		<div class="screen-wrap">
-			<div class="set-name-screen">
-				<input type="text" placeholder="Пожалуйста, введите своё имя">
-				<button class="next">Далее</button>
-			</div>
-		</div>
-		<div class="screen-wrap">
-			<div class="menu-screen">
-				<div class="buttons">
-					<h1>Асық ату</h1>
-					<button class="start">Начать</button>
-					<button class="servers">Сервера</button>
-					<button class="settings">Настройки</button>
-					<button class="workshop">Мастерская</button>
-					<button class="about">Об игре</button>
-				</div>
-				<div class="logo"></div>
-			</div>
-		</div>
-		<div class="screen-wrap">
-			<div class="servers-screen">
-				<div class="line">
-					<h2>Список серверов:</h2>
-					<div class="load"><span>#Server-1</span><span class="anim-load"><span class="text">Загрузка</span><span class="points">.....</span></span></div>
-				</div>
-				<button class="back">Назад</button>
-			</div>
-		</div>
-		<div class="screen-wrap">
-			<div class="workshop-screen">
-				<div class="items">
-					<div class="item item_1" data-id="1"></div>
-					<div class="item item_2" data-id="2"></div>
-					<div class="item item_3" data-id="3"></div>
-					<div class="item item_4" data-id="4"></div>
-					<div class="item item_5" data-id="5"></div>
-					<div class="item item_6" data-id="6"></div>
-				</div>
-				<button class="back">Назад</button>
-			</div>
+	<div class="wrapper">
+		<button class="back hide"><</button>
+		<div class="main">
 		</div>
 	</div>
-	<!-- <button>Начать</button> -->
-	<!-- <canvas></canvas> -->
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="https://cdn.jsdelivr.net/npm/phaser@3.15.1/dist/phaser-arcade-physics.min.js"></script>
-	<script src="js/script.js"></script>
+	<script src="assets/js/script.js"></script>
 	
 </body>
 </html>
