@@ -6,13 +6,24 @@ $('div.main').load(path + 'main.page.html');
 
 
 $('body').on('click', 'button.start', function () {
-	$('div.wrapper').load(path + 'game.page.html');
+	$('div.main').load(path + 'levels.page.html', function () {
+		$('button.back').removeClass('hide');
+	});
+})
+
+$('body').on('click', 'button.level1', function () {
+	$('div.wrapper').load(path + 'level1.page.html');
+})
+
+$('body').on('click', 'button.level2', function () {
+	$('div.wrapper').load(path + 'level2.page.html');
 })
 
 
 $('body').on('click', 'button.servers', function () {
-	$('button.back').removeClass('hide');
-	$('div.main').load(path + 'servers.page.html');
+	$('div.main').load(path + 'servers.page.html', function () {
+		$('button.back').removeClass('hide');
+	});
 })
 
 $('body').on('click', 'div.servers .server', function () {
@@ -35,8 +46,8 @@ $('body').on('click', 'button.connect', function () {
 
 
 $('body').on('click', 'button.settings', function () {
-	$('button.back').removeClass('hide');
 	$('div.main').load(path + 'settings.page.html', function () {
+		$('button.back').removeClass('hide');
 		if (localStorage.getItem('name')) {
 			$('input.name').val(localStorage.getItem('name'));
 		}
@@ -55,8 +66,9 @@ $('body').on('click', 'button.save', function () {
 
 
 $('body').on('click', 'button.workshop', function () {
-	$('button.back').removeClass('hide');
-	$('div.main').load(path + 'workshop.page.html');
+	$('div.main').load(path + 'workshop.page.html', function () {
+		$('button.back').removeClass('hide');
+	});
 })
 
 $('body').on('click', '.skins img', function () {
@@ -66,12 +78,14 @@ $('body').on('click', '.skins img', function () {
 
 
 $('body').on('click', 'button.about', function () {
-	$('button.back').removeClass('hide');
-	$('div.main').load(path + 'about.page.html');
+	$('div.main').load(path + 'about.page.html', function () {
+		$('button.back').removeClass('hide');
+	});
 })
 
 
 $('button.back').on('click', function () {
-	$('button.back').addClass('hide');
-	$('div.main').load(path + 'main.page.html');
+	$('div.main').load(path + 'main.page.html', function () {
+		$('button.back').addClass('hide');
+	});
 })

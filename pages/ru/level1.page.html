@@ -46,6 +46,7 @@ var game = new Phaser.Game(config);
 
 function preload() {
 	this.load.setBaseURL('https://lytsites.github.io');
+	// this.load.setBaseURL('http://asyky');
 
 	this.load.image('background', 'assets/img/background.png');
 	if (localStorage.getItem('link')) this.load.image('player', 'assets/img/' + localStorage.getItem('link'),);
@@ -53,7 +54,6 @@ function preload() {
 	this.load.image('purpose', 'assets/img/purpose.png');
 	this.load.image('arrow', 'assets/img/arrow.png');
 	this.load.image('force', 'assets/img/force.png');
-	this.load.image('arena', 'assets/img/arena.png');
 }
 
 function create() {
@@ -64,11 +64,6 @@ function create() {
 	background.displayWidth = screenWidth;
 	background.displayHeight = screenHeight;
 
-	// Arena
-	arena = this.add.image(screenWidth / 2, screenHeight / 2, 'arena');
-	arena.displayWidth = screenHeight / 1.5;
-	arena.displayHeight = screenHeight / 1.5;
-
 	// Objects
 	player = this.physics.add.sprite(screenWidth / 2, screenHeight - 175, 'player').setOrigin(0.5,0.5);
 	player.displayWidth = 40;
@@ -77,21 +72,11 @@ function create() {
 	player.setBounce(1);
 	player.setMass(100);
 
-	purposes = this.physics.add.group({
-		defaultKey: 'purposes',
-		bounceX: 1,
-		bounceY: 1,
-	});
-
-	purposes.create(screenWidth / 2 - 100, 275, 'purpose');
-	purposes.create(screenWidth / 2, 200, 'purpose');
-	purposes.create(screenWidth / 2 + 100, 275, 'purpose');
-	purposes.children.iterate(function (purpose) {
-		purpose.body.setCollideWorldBounds(true);
-		purpose.displayWidth = 40;
-		purpose.displayHeight = 40;
-		purpose.setMass(100);
-	});
+	purpose = this.physics.add.sprite(screenWidth / 2, 275, 'purpose').setOrigin(0.5,0.5);
+	purpose.body.setCollideWorldBounds(true);
+	purpose.displayWidth = 40;
+	purpose.displayHeight = 40;
+	purpose.setMass(100);
 
 	// Force
 	force = this.add.image(20, screenHeight - 33, 'force').setOrigin(0,0);
@@ -104,7 +89,9 @@ function create() {
 	arrow.displayHeight = 100;
 
 	// Text
-	if (!localStorage.getItem('name')) localStorage.getItem('name') = '000';
+	if (!localStorage.getItem('name')) {
+		localStorage.setItem('name', '000');
+	}
 	if (localStorage.getItem('language') == 'ru') {
 		scoreText = this.add.text(0, 0, localStorage.getItem('name') + ', ваш счёт: ' + score);
 	}
@@ -131,9 +118,7 @@ function create() {
 						w = 0;
 					}
 					force.displayWidth = w;
-					purposes.children.iterate(function (purpose) {
-						purpose.setMass(10 * w);
-					});
+					purpose.setMass(10 * w);
 				}, 10);
 			}
 			if (downe == 2) {
@@ -143,7 +128,7 @@ function create() {
 		}
 	}, this);
 
-	this.physics.add.collider(player, purposes, function (player, purpose) {
+	this.physics.add.collider(player, purpose, function (player, purpose) {
 		score += 1;
 		intervalId = setInterval(function () {
 			if (player.body.velocity.x >= 0 || player.body.velocity.x <= 0) {
@@ -158,6 +143,10 @@ function create() {
 		setTimeout(function () {
 			player.x = screenWidth / 2;
 			player.y = screenHeight - 175;
+			purpose.x = screenWidth / 2;
+			purpose.y = 275;
+			player.body.velocity.x = 0;
+			player.body.velocity.y = 0;
 			move = true;
 			downe = 0;
 			clearInterval(intervalId)
