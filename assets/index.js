@@ -3,7 +3,6 @@ $(document).ready(function () {
 	$('body').css({
 		'display': 'block',
 	})
-
 	if (window.location.pathname.split('.')[0] == '/data') {
 		questions = [];
 		$('select[name="obj"]').on('change', function () {
@@ -60,8 +59,7 @@ $(document).ready(function () {
 					return val;
 				}
 			});
-			console.log(all)
-			questions = all.sort(() => 0.5 - Math.random()).slice(0, 25);
+			questions = all.sort(() => 0.5 - Math.random()).slice(0, window.location.hash.replace('#', ''));
 			for (i = 1; i <= questions.length; i++) {
 				el = questions[i - 1].split('~');
 				$('.blocks').append($('<div>', {
@@ -96,7 +94,7 @@ $(document).ready(function () {
 		});
 
 		$('body').on('click', '.b-answers li', function () {
-			if (count < 25) {
+			if (count < window.location.hash.replace('#', '')) {
 				count += 1;
 			}
 
@@ -118,7 +116,7 @@ $(document).ready(function () {
 			}
 		})
 
-		$('body').on('click', '.block-25 li', function () {
+		$('body').on('click', '.block-' + window.location.hash.replace('#', '') + ' li', function () {
 			$('.block').css({
 				'display': 'block',
 				'pointer-events': 'none',
