@@ -1,11 +1,5 @@
 $(document).ready(function () {
 
-	// let confirmed = false;
-
-	// while(!confirmed) {
-	// 	confirmed = confirm("Карина псина плешивая?", "Да", "Нет");
-	// }
-
 	$('[data-toggle="tooltip"]').tooltip();
 
 	$('body').css({
