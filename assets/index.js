@@ -62,6 +62,7 @@ $(document).ready(function () {
 				}
 			});
 			questions = all.sort(() => 0.5 - Math.random()).slice(0, window.location.hash.replace('#', ''));
+			console.log(questions)
 			for (i = 1; i <= questions.length; i++) {
 				el = questions[i - 1].split('~');
 				$('.blocks').append($('<div>', {
