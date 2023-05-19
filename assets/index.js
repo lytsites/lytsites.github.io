@@ -62,7 +62,6 @@ $(document).ready(function () {
 				}
 			});
 			questions = all.sort(() => 0.5 - Math.random()).slice(0, window.location.hash.replace('#', ''));
-			console.log(questions)
 			for (i = 1; i <= questions.length; i++) {
 				el = questions[i - 1].split('~');
 				$('.blocks').append($('<div>', {
@@ -84,6 +83,7 @@ $(document).ready(function () {
 					answers = el.slice(1);
 					answers = answers.sort(() => 0.5 - Math.random());
 					for (j = 0; j < 5; j++) {
+						console.log(answers[j])
 						if (answers[j].indexOf('<>') !== -1) {
 							html += '<li class="li-' + j + 1 + ' active">' + answers[j].replaceAll('"', '').replace('<>', '') + '</li>'
 						}
