@@ -82,8 +82,8 @@ $(document).ready(function () {
 					html = '';
 					answers = el.slice(1);
 					answers = answers.sort(() => 0.5 - Math.random());
+					console.log(answers)
 					for (j = 0; j < 5; j++) {
-						console.log(answers[j])
 						if (answers[j].indexOf('<>') !== -1) {
 							html += '<li class="li-' + j + 1 + ' active">' + answers[j].replaceAll('"', '').replace('<>', '') + '</li>'
 						}
