@@ -157,7 +157,7 @@ function initializeGame () {
 
 
 		// power meter
-		powerMeter = this.add.sprite(gameWidth - 20, gameHeight - 20, 'powerMeter').setOrigin(1, 0.5);
+		powerMeter = this.add.sprite(gameWidth - 30, gameHeight - 30, 'powerMeter').setOrigin(1, 0.5);
 		powerMeter.setDisplaySize(100, 10);
 		powerMeter.setVisible(false);
 		meterScale = powerMeter.scaleX;

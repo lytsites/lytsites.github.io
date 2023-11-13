@@ -53,8 +53,8 @@ button:hover {
 
 .player_1-score {
 	position: absolute;
-	left: 10px;
-	top: 10px;
+	left: 20px;
+	top: 20px;
 	font-size: 20px;
 	color: red;
 	display: none;
@@ -62,8 +62,8 @@ button:hover {
 
 .player_2-score {
 	position: absolute;
-	right: 10px;
-	top: 10px;
+	right: 20px;
+	top: 20px;
 	font-size: 20px;
 	color: yellow;
 	display: none;
