@@ -5,22 +5,28 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- <link rel="stylesheet" href="src/css/main.css"> -->
 	<script src="scripts/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/FBXLoader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/MTLLoader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/OBJLoader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/libs/fflate.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/21.0.0/tween.umd.js" integrity="sha512-iPPs+A0ew4z+jybQ1r6HPj5b8zV8zaw6TpfGn/qqntA480gp6HDfUJGp1ni46LXrItwnTvYlg80h1NIkC4pf6g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cannon.js/0.6.2/cannon.min.js" integrity="sha512-avLcnGxl5mqAX/wIKERdb1gFNkOLHh2W5JNCfJm5OugpEPBz7LNXJJ3BDjjwO00AxEY1MqdNjtEmiYhKC0ld7g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/FBXLoader.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/MTLLoader.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/OBJLoader.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/libs/fflate.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/21.0.0/tween.umd.js" integrity="sha512-iPPs+A0ew4z+jybQ1r6HPj5b8zV8zaw6TpfGn/qqntA480gp6HDfUJGp1ni46LXrItwnTvYlg80h1NIkC4pf6g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/cannon.js/0.6.2/cannon.min.js" integrity="sha512-avLcnGxl5mqAX/wIKERdb1gFNkOLHh2W5JNCfJm5OugpEPBz7LNXJJ3BDjjwO00AxEY1MqdNjtEmiYhKC0ld7g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 	<title>Asyk 3D Game</title>
 
 	<style>
-		body {
-			margin: 0;
+		@font-face {
+			font-family: 'Bahnschrift';
+			src: '../fonts/Bahnschrift.ttf';
+		}
+
+		* {
 			padding: 0;
+			margin: 0;
 			box-sizing: border-box;
+			font-family: 'Bahnschrift';
 		}
 
 		canvas {
@@ -40,26 +46,6 @@
 			background-size: cover;
 			background-position: 50% 50%;
 			display: none;
-		}
-
-		.server {
-			width: 100%;
-			height: 100%;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			position: absolute;
-			background: rgba(235, 235, 235, 1);
-			display: none;
-		}
-
-		.block {
-			position: absolute;
-			left: 200px;
-			top: 100px;
-			right: 200px;
-			bottom: 100px;
-			border: 2px solid black;
 		}
 
 		.menu {
@@ -84,6 +70,90 @@
 			height: 40px;
 			margin: 3px 0;
 			cursor: pointer;
+			border: none;
+			opacity: .9;
+		}
+
+		button:hover {
+			opacity: 1;
+		}
+
+		.redCount, .yellowCount {
+			position: absolute;
+			top: 20px;
+			font-size: 25px;
+			font-weight: bold;
+			display: none;
+		}
+
+		.yellowCount {
+			left: 20px;
+			color: yellow;
+		}
+
+		.redCount {
+			right: 20px;
+			color: red;
+		}
+
+		.end-game {
+			position: absolute;
+			background: #fff;
+			width: 500px;
+			height: 150px;
+			top: 100px;
+			left: 50%;
+			transform: translateX(-50%);
+			text-align: center;
+			font-size: 25px;
+			display: none;
+		}
+
+		.modal {
+			display: none;
+			background: #fff;
+			width: 700px;
+			min-height: 300px;
+			position: absolute;
+			top: 100px;
+			left: 50%;
+			transform: translateX(-50%);
+			padding: 45px 20px;
+			opacity: .95;
+		}
+
+		.modal span:nth-child(1) {
+			position: absolute;
+			border: 2px solid black;
+			width: 20px;
+			transform: rotateZ(-45deg) translateY(5px) translateX(-7px);
+		}
+
+		.modal span:nth-child(2) {
+			position: absolute;
+			border: 2px solid black;
+			width: 20px;
+			transform: rotateZ(45deg) translateY(7px) translateX(5px);
+		}
+
+		.modal .close {
+			cursor: pointer;
+			width: 20px;
+			height: 20px;
+			position: absolute;
+			right: 20px;
+			top: 20px;
+		}
+
+		.line {
+			display: flex;
+			justify-content: space-between;
+			margin: 100px 50px;
+			padding: 10px;
+			border: 2px solid black;
+			height: 40px;
+			line-height: 40px;
+			cursor: pointer;
 		}
 	</style>
 
@@ -92,21 +162,45 @@
 
 	<div class="menu">
 		<div class="menu-container">
-			<button class="start-game">Начать игру</button>
-			<button class="server-game">Игра по сети</button>
-			<button class="history">История</button>
-			<button class="language">Язык: Русский</button>
+			<button class="start-button">Начать игру</button>
+			<button class="server-button">Игра по сети</button>
+			<button class="history-button">История</button>
+			<button class="language-button">Язык: Русский</button>
 		</div>
 	</div>
 
-	<div class="server">
-		<div class="block"></div>
-		<h1>Загрузка...</h1>
+	<div class="modal server">
+		<div class="close">
+			<span></span>
+			<span></span>
+		</div>
+		<div class="line">
+			<div class="name">Server #1</div>
+			<div class="info"><b>Internet Error</b></div>
+			<div class="count">0/2</div>
+		</div>
+	</div>
+
+	<div class="modal history">
+		<div class="close">
+			<span></span>
+			<span></span>
+		</div>
+		<div class="content">
+			Асык ату – одна из древнейших игр кочевников. По мнению ученых-этнографов, она появилась на территории Казахстана еще в первом тысячелетии до нашей эры и связана с животноводством и охотой. Возрастного ценза для участия в игре нет: соревноваться на меткость могут и школьники, и пенсионеры. Два года назад национальная игра асык ату была включена в репрезентативный список нематериального культурного наследия человечества ЮНЕСКО.<br>Правила игры в асыки несложные. Косточки выставляются в ряд (на кон), задача игроков – с определенного расстояния выбить один или сразу несколько из них своим асыком (сака). Те косточки, которые удастся выбить, становятся добычей игрока.<br>Сака имеется у каждого, кто играет в асык ату. Обычно для него выбирается самый крупный и, соответственно, самый тяжелый асык из имеющихся в коллекции. Для большего утяжеления в биток заливают свинец и обматывают медной или алюминиевой проволокой. В древности у привилегированных ханских и султанских детей сака заливался даже золотом. В казахской народной сказке «Алтын сака» («золотой сака») хорошо передана ценность этого асыка. Ради нее мальчик чуть не погибает от рук злой колдуньи.
+		</div>
 	</div>
 	
 	<div class="loading-screen">
 		<h1>Загрузка...</h1>
 	</div>
+
+	<div class="end-game">
+		<div class="title"><h3>Игра окончена!</h3></div>
+	</div>
+
+	<div class="redCount">0</div>
+	<div class="yellowCount">0</div>
 
 	<script src="main.js"></script>
 

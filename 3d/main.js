@@ -21,6 +21,44 @@ const collisionMap = new Map();
 isCollisionDetected = false;
 let dampingFactor = 0.95;
 
+const bitkasExitedCircle = new Set();
+let redExitedCount = 0;
+let yellowExitedCount = 0;
+let circleRadius = 20;
+
+currentLanguage = localStorage.getItem('selectedLanguage') || 'ru';
+
+translations = {
+	'.start-button': {
+		'ru': 'Начать игру',
+		'kk': 'Ойынды бастаңыз'
+	},
+	'.server-button': {
+		'ru': 'Игра по сети',
+		'kk': 'Желі бойынша ойын'
+	},
+	'.history-button': {
+		'ru': 'История',
+		'kk': 'Тарих'
+	},
+	'.language-button': {
+		'ru': 'Язык: Русский',
+		'kk': 'Тілі: Қазақ Тілі'
+	},
+	'.loading-screen h1': {
+		'ru': 'Загрузка...',
+		'kk': 'Жүктеу...'
+	},
+	'.end-game .title h3': {
+		'ru': 'Игра окончена!',
+		'kk': 'Ойын аяқталды!'
+	},
+	'.history .content': {
+		'ru': 'Асык ату – одна из древнейших игр кочевников. По мнению ученых-этнографов, она появилась на территории Казахстана еще в первом тысячелетии до нашей эры и связана с животноводством и охотой. Возрастного ценза для участия в игре нет: соревноваться на меткость могут и школьники, и пенсионеры. Два года назад национальная игра асык ату была включена в репрезентативный список нематериального культурного наследия человечества ЮНЕСКО.\nПравила игры в асыки несложные. Косточки выставляются в ряд (на кон), задача игроков – с определенного расстояния выбить один или сразу несколько из них своим асыком (сака). Те косточки, которые удастся выбить, становятся добычей игрока.\nСака имеется у каждого, кто играет в асык ату. Обычно для него выбирается самый крупный и, соответственно, самый тяжелый асык из имеющихся в коллекции. Для большего утяжеления в биток заливают свинец и обматывают медной или алюминиевой проволокой. В древности у привилегированных ханских и султанских детей сака заливался даже золотом. В казахской народной сказке «Алтын сака» («золотой сака») хорошо передана ценность этого асыка. Ради нее мальчик чуть не погибает от рук злой колдуньи.',
+		'kk': 'Асық ату-көшпенділердің ең көне ойындарының бірі. Ғалым-этнографтардың пікірінше, ол біздің дәуірімізге дейінгі бірінші мыңжылдықта Қазақстан аумағында пайда болған және мал шаруашылығымен және аңшылықпен байланысты. Ойынға қатысу үшін жас шегі жоқ: мектеп оқушылары да, зейнеткерлер де дәлме-дәл бәсекеге түсе алады. Екі жыл бұрын асық ату ұлттық ойыны ЮНЕСКО-ның Адамзаттың материалдық емес мәдени мұрасының өкілдік тізіміне енгізілді.\nАсық ойнау ережесі күрделі емес. Сүйектер қатарға қойылады (кон), ойыншылардың міндеті-белгілі бір қашықтықтан олардың біреуін немесе бірнешеуін бірден асықпен (сақ) қағу. Нокаутқа түсетін сүйектер ойыншының олжасына айналады.\nАсық ату ойынын ойнайтындардың барлығында сақа бар. Әдетте ол үшін коллекциядағы ең үлкен және сәйкесінше ең ауыр асық таңдалады. Үлкен салмақ үшін қорғасын допқа құйылады және мыс немесе алюминий сыммен оралады. Ежелгі уақытта артықшылықты хан және Сұлтан балаларының арасында сақа тіпті алтынға толған. Қазақ халық ертегісінде" Алтын сақа "("Алтын сақа") осы асықтың құндылығын жақсы жеткізген. Ол үшін бала зұлым сиқыршының қолынан өле жаздайды.'
+	},
+}
+
 
 const modelsToLoad = [
 	{ name: 'red_asyk', objPath: 'models/red_asyk/red_asyk.obj', mtlPath: 'models/red_asyk/red_asyk.mtl', position: new THREE.Vector3(0, 0, 25) },
@@ -63,51 +101,60 @@ function animate() {
 		currentAsyk.position.copy(currentAsyk.userData.physicsBody.position);
 		currentAsyk.quaternion.copy(currentAsyk.userData.physicsBody.quaternion);
 		if (currentAsyk.userData.physicsBody.position.y >= 1) {
-			currentAsyk.userData.physicsBody.position.y -= 0.5
+			currentAsyk.userData.physicsBody.position.y -= 0.1
 		}
 	}
 
 	if (bitka1) {
 		bitka1.position.copy(bitka1.userData.physicsBody.position);
 		bitka1.quaternion.copy(bitka1.userData.physicsBody.quaternion);
+		if (bitka1.userData.physicsBody.position.y >= 1) {
+			bitka1.userData.physicsBody.position.y -= 0.1
+		}
 	}
 
 	if (bitka2) {
 		bitka2.position.copy(bitka2.userData.physicsBody.position);
 		bitka2.quaternion.copy(bitka2.userData.physicsBody.quaternion);
+		if (bitka2.userData.physicsBody.position.y >= 1) {
+			bitka2.userData.physicsBody.position.y -= 0.1
+		}
 	}
 
 	if (bitka3) {
 		bitka3.position.copy(bitka3.userData.physicsBody.position);
 		bitka3.quaternion.copy(bitka3.userData.physicsBody.quaternion);
-	}
-
-const checkCollision = (bodyA, bodyB) => {
-	const contacts = world.contacts.filter(contact =>
-		(
-			(contact.bi === bodyA && contact.bj === bodyB) ||
-			(contact.bi === bodyB && contact.bj === bodyA)
-		)
-	);
-
-	if (contacts.length > 0 && !isCollisionDetected) {
-		isCollisionDetected = true;
-
-		const collidedBitka = determineCollidedBitka(bodyA, bodyB);
-		if (collidedBitka && collidedBitka.userData && collidedBitka.userData.physicsBody) {
-			const halfVelocity = new CANNON.Vec3().copy(currentAsyk.userData.physicsBody.velocity).scale(0.5);
-			collidedBitka.userData.physicsBody.velocity.copy(halfVelocity);
-			currentAsyk.userData.physicsBody.velocity.set(0, 0, 0);
-
-			setTimeout(function () {
-				currentAsyk.userData.physicsBody.velocity.set(0, 0, 0);
-				currentAsyk.userData.physicsBody.angularVelocity.set(0, 0, 0);
-				currentAsyk.userData.physicsBody.quaternion.set(0, 0, 0, 1);
-				currentAsyk.userData.physicsBody.position.set(0, 0, 20)
-			}, 1000)
+		if (bitka3.userData.physicsBody.position.y >= 1) {
+			bitka3.userData.physicsBody.position.y -= 0.1
 		}
 	}
-};
+
+	const checkCollision = (bodyA, bodyB) => {
+		const contacts = world.contacts.filter(contact =>
+			(
+				(contact.bi === bodyA && contact.bj === bodyB) ||
+				(contact.bi === bodyB && contact.bj === bodyA)
+			)
+		);
+
+		if (contacts.length > 0 && !isCollisionDetected) {
+			isCollisionDetected = true;
+
+			const collidedBitka = determineCollidedBitka(bodyA, bodyB);
+			if (collidedBitka && collidedBitka.userData && collidedBitka.userData.physicsBody) {
+				const halfVelocity = new CANNON.Vec3().copy(currentAsyk.userData.physicsBody.velocity).scale(0.4);
+				collidedBitka.userData.physicsBody.velocity.copy(halfVelocity);
+				currentAsyk.userData.physicsBody.velocity.set(0, 0, 0);
+
+				setTimeout(function () {
+					currentAsyk.userData.physicsBody.velocity.set(0, 0, 0);
+					currentAsyk.userData.physicsBody.angularVelocity.set(0, 0, 0);
+					currentAsyk.userData.physicsBody.quaternion.set(0, 0, 0, 1);
+					currentAsyk.userData.physicsBody.position.set(0, 0, 20)
+				}, 1000)
+			}
+		}
+	};
 
 
 	if (currentAsyk && currentAsyk.userData && currentAsyk.userData.physicsBody) {
@@ -115,10 +162,32 @@ const checkCollision = (bodyA, bodyB) => {
 		checkCollision(currentAsyk.userData.physicsBody, bitka2Body);
 		checkCollision(currentAsyk.userData.physicsBody, bitka3Body);
 	}
+
+    checkBitkaPosition(bitka1);
+    checkBitkaPosition(bitka2);
+    checkBitkaPosition(bitka3);
 	
 }
 
-// Функция для определения столкнувшегося bitka
+function checkBitkaPosition(bitka) {
+    if (bitka && bitka.userData && bitka.userData.physicsBody && !bitkasExitedCircle.has(bitka)) {
+        const bitkaPos = bitka.userData.physicsBody.position;
+        const distance = Math.sqrt(bitkaPos.x ** 2 + bitkaPos.z ** 2);
+
+        if (distance > circleRadius) {
+            bitkasExitedCircle.add(bitka);
+            if (currentAsyk == redAsyk) {
+            	redExitedCount += 1;
+            	$('.redCount').text(redExitedCount)
+            }
+            else {
+            	yellowExitedCount += 1;
+            	$('.yellowCount').text(yellowExitedCount)	
+            }
+        }
+    }
+}
+
 const determineCollidedBitka = (bodyA, bodyB) => {
 	if (bodyA === currentAsyk.userData.physicsBody) {
 		return getBitkaFromBody(bodyB);
@@ -128,7 +197,6 @@ const determineCollidedBitka = (bodyA, bodyB) => {
 	return null;
 };
 
-// Функция для получения объекта bitka из physicsBody
 const getBitkaFromBody = (body) => {
 	if (body === bitka1Body) {
 		return bitka1;
@@ -279,6 +347,8 @@ function loadModels(models) {
 
 					$('canvas').css('display', 'block');
 					$('.loading-screen').css('display', 'none');
+					$('.redCount').css('display', 'block');
+					$('.yellowCount').css('display', 'block');
 				}
 			});
 		});
@@ -388,6 +458,7 @@ window.addEventListener('mousedown', function(event) {
 			currentAsyk.userData.physicsBody.velocity.copy(force);
 			redAsykThrows++;
 		} else {
+			bitkasExitedCircle.clear();
 			currentAsyk = yellowAsyk;
 			yellowAsyk.visible = true;
 			yellowAsykBody.position.set(0, 0, 25)
@@ -429,20 +500,57 @@ window.addEventListener('mousedown', function(event) {
 			currentAsyk.userData.physicsBody.velocity.copy(force);
 			yellowAsykThrows++;
 		} else {
-			console.log('Игра завершена!');
+			$('.end-game').css('display', 'block')
 		}
 	}
 });
 
+function translate(key, language) {
+	translation = translations[key] ? translations[key][language] : translations[key]['ru'];
+	return translation || key;
+}
+
+function changeLanguage() {
+	currentLanguage = (currentLanguage === 'ru') ? 'kk' : 'ru';
+	localStorage.setItem('selectedLanguage', currentLanguage);
+
+	updateText();
+}
+
+function updateText() {
+	const elementsToUpdate = ['.start-button', '.server-button', '.history-button', '.language-button', '.loading-screen h1', '.end-game .title h3', '.history .content'];
+
+	elementsToUpdate.forEach(function(element) {
+		$(element).text(translate(element, currentLanguage));
+	});
+}
+
 $(document).ready(function () {
-	$('.start-game').on('click', function () {
+
+	currentLanguage = localStorage.getItem('selectedLanguage') || 'ru';
+	if (currentLanguage !== 'ru') {
+		updateText();
+	}
+
+	$('.start-button').on('click', function () {
 		$('.loading-screen').css('display', 'flex');
 		$('.menu').css('display', 'none');
 		init();
-		initControls();
+		// initControls();
 	})
 
-	$('.server-game').on('click', function () {
-		$('.server').css('display', 'flex');
+	$('.server-button').on('click', function () {
+		$('.server').css('display', 'block');
+	})
+	$('.history-button').on('click', function () {
+		$('.history').css('display', 'flex');
+	})
+
+	$('.language-button').on('click', function () {
+		changeLanguage()
+	})
+
+	$('.close').on('click', function () {
+		$(this).parent('.modal').css('display', 'none')
 	})
 })
