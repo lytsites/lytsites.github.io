@@ -58,7 +58,7 @@
 
 		.modal-content {
 			background-color: #fefefe;
-			margin: 15% auto;
+			margin: 10% auto 0 auto;
 			padding: 20px;
 			border: 1px solid #888;
 			border-radius: 15px;
@@ -87,6 +87,8 @@
 			margin-top: 15px;
 			margin-right: 15px;
 			cursor: pointer;
+			border: 1px solid rgba(0, 0, 0, .5);
+			border-radius: 15px 15px 0 0;
 		}
 
 		.levels img {
@@ -94,8 +96,12 @@
 			height: 150px;
 			background-position: 50% 50%;
 			background-size: cover;
-			border: 1px solid rgba(0, 0, 0, .5);
-			border-radius: 15px;
+			border-bottom: 1px solid rgba(0, 0, 0, .5);
+			border-radius: 15px 15px 0 0;
+		}
+
+		.level-title {
+			padding-left: 5px;
 		}
 
 		.leftCount, .rightCount {
@@ -129,6 +135,17 @@
 			transition: background-color 0.3s ease;
 		}
 
+		button.toMenu {
+			display: none;
+			width: 40px;
+			text-align: center;
+			padding-left: 0;
+			padding-right: 0;
+			position: absolute;
+			top: 40px;
+			left: 15px;
+		}
+
 		button:hover {
 			background-color: #45a049;
 		}
@@ -136,13 +153,53 @@
 		button:focus {
 			outline: none;
 		}
+
+		hr {
+			margin: 15px 0;
+		}
+
+		.difficulty-slider {
+			-webkit-appearance: none;
+			width: 100%;
+			height: 10px;
+			border-radius: 5px;
+			background: #d3d3d3;
+			outline: none;
+			opacity: 0.7;
+			-webkit-transition: .2s;
+			transition: opacity .2s;
+		}
+
+		.difficulty-slider:hover {
+			opacity: 1;
+		}
+
+		.difficulty-slider::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			appearance: none;
+			width: 20px;
+			height: 20px;
+			border-radius: 50%;
+			background: #4CAF50;
+			cursor: pointer;
+		}
+
+		.difficulty-slider::-moz-range-thumb {
+			width: 20px;
+			height: 20px;
+			border-radius: 50%;
+			background: #4CAF50;
+			cursor: pointer;
+		}
 	</style>
 
 </head>
 <body>
 
-	<div class="leftCount">0</div>
-	<div class="rightCount">0</div>
+	<audio src="musics/level-1.mp3"></audio>
+	<div class="leftCount">Игрок 1: <span>0</span></div>
+	<div class="rightCount">Игрок 2: <span>0</span></div>
+	<button class="toMenu"><</button>
 
 	<div class="modal level-modal">
 		<div class="modal-content">
@@ -151,13 +208,21 @@
 			<div class="levels">
 				<div class="level" data-level="1">
 					<img src="images/level-1.png" alt="">
+					<div class="level-title"><h3>Уровень 1</h3></div>
 				</div>
 				<div class="level" data-level="2">
 					<img src="images/level-2.png" alt="">
+					<div class="level-title"><h3>Уровень 2</h3></div>
 				</div>
 				<div class="level" data-level="3">
 					<img src="images/level-3.png" alt="">
+					<div class="level-title"><h3>Уровень 3</h3></div>
 				</div>
+			</div>
+			<hr>
+			<div class="difficulty-settings">
+				<h3 class="difficulty-label">Новичок</h3>
+				<input type="range" min="1" max="3" value="1" step="1" class="difficulty-slider">
 			</div>
 		</div>
 	</div>
@@ -166,7 +231,9 @@
 		<div class="menu">
 			<button class="startButton">Начать игру</button>
 			<button class="multiplayerButton">Сетевая игра</button>
+			<button class="collectionButton">Коллекция</button>
 			<button class="historyButton">История</button>
+			<button class="langButton">Язык: русский</button>
 		</div>
 	</div>
 

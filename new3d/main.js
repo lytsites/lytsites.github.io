@@ -107,19 +107,19 @@ function startGame(level) {
 		groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(-1, 0, 0), Math.PI / 2);
 		world.addBody(groundBody);
 
-// Создание сферы для неба
-let sphereGeometry = new THREE.SphereBufferGeometry(900, 32, 32);
-let textureLoader = new THREE.TextureLoader();
-let texture = textureLoader.load('images/sky.jpg'); // Загрузка текстуры неба
+		// Создание сферы для неба
+		let sphereGeometry = new THREE.SphereBufferGeometry(900, 32, 32);
+		let textureLoader = new THREE.TextureLoader();
+		let texture = textureLoader.load('images/sky.jpg'); // Загрузка текстуры неба
 
-// Создание материала с использованием текстуры
-let skyMaterial = new THREE.MeshBasicMaterial({ map: texture, side: THREE.BackSide });
+		// Создание материала с использованием текстуры
+		let skyMaterial = new THREE.MeshBasicMaterial({ map: texture, side: THREE.BackSide });
 
-// Создание объекта для неба с применением материала
-let sky = new THREE.Mesh(sphereGeometry, skyMaterial);
+		// Создание объекта для неба с применением материала
+		let sky = new THREE.Mesh(sphereGeometry, skyMaterial);
 
-// Добавление неба в сцену
-scene.add(sky);
+		// Добавление неба в сцену
+		scene.add(sky);
 
 		if (level == 3) {
 				const circleTexture = new THREE.TextureLoader().load('images/level-3.png');
@@ -181,15 +181,16 @@ scene.add(sky);
 
 
 				let audioPath = 'musics/level-' + level + '.mp3';
-				let audioElement = $('<audio>', {
-					id: 'backgroundMusic',
-					loop: true,
-					html: '<source src="' + audioPath + '" type="audio/mpeg">',
-					text: 'Ваш браузер не поддерживает аудио элемент.',
-					css: { display: 'none' } // Скрытие элемента с помощью CSS
-				});
-				$('body').append(audioElement);
-				$('#backgroundMusic').trigger('play');
+				$('audio').attr('src', audioPath);
+				$('audio').trigger('play');
+
+				$('.leftCount').css('visibility', 'visible');
+				$('.rightCount').css('visibility', 'visible');
+
+				$('.leftCount span').text(collideCountP1);
+				$('.rightCount span').text(collideCountP2);
+
+				$('.toMenu').css('display', 'block');
 
 				function animate() {
 						requestAnimationFrame(animate);
@@ -231,11 +232,6 @@ scene.add(sky);
 						});
 
 						renderer.render(scene, camera);
-						$('.leftCount').css('visibility', 'visible');
-						$('.rightCount').css('visibility', 'visible');
-
-						$('.leftCount').text(collideCountP1);
-						$('.rightCount').text(collideCountP2);
 				}
 
 				animate();
@@ -317,4 +313,47 @@ $(document).ready(() => {
 				const level = $(this).attr('data-level');
 				startGame(level)
 		});
+
+		$('.toMenu').click(function() {
+			if ($(this).attr('data-to') !== 'main') {
+				$('.main').css('display', 'block');
+				$('canvas').remove();
+				$('audio').trigger('pause').prop('currentTime', 0);
+
+				$('.leftCount').css('visibility', 'hidden');
+				$('.rightCount').css('visibility', 'hidden');
+				$('.leftCount span').text('0');
+				$('.rightCount span').text('0');
+
+				$('.toMenu').css('display', 'none')
+			}
+			else {
+				window.history.back();
+			}
+		})
+
+		$('.difficulty-slider').on('input', function() {
+			var value = parseInt($(this).val());
+			var labelText = '';
+
+			switch (value) {
+				case 1:
+					labelText = 'Новичок';
+					break;
+				case 2:
+					labelText = 'Средний игрок';
+					break;
+				case 3:
+					labelText = 'Про';
+					break;
+				default:
+					labelText = 'Новичок';
+			}
+
+			$('.difficulty-settings h3').text(labelText);
+		})
+
+		$('.collectionButton').click(function() {
+			window.location.href = 'collection.html'
+		})
 });
