@@ -311,13 +311,17 @@ $(document).ready(() => {
 				}
 		});
 
+		$('.main').css('display', 'none');
+		$('.modal').fadeOut();
+		$('.special').css('visibility', 'visible');
+
 		$('.level').click(function() {
 				const level = $(this).attr('data-level');
 				// startGame(level)
 
-				$('.main').css('display', 'none');
-				$('.modal').fadeOut();
-				$('.special').css('visibility', 'visible');
+				// $('.main').css('display', 'none');
+				// $('.modal').fadeOut();
+				// $('.special').css('visibility', 'visible');
 
 		});
 
