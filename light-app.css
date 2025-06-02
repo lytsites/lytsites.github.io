@@ -1,0 +1,16 @@
+#app {
+	background: #E8EBF7;
+	color: #171408;
+}
+
+.indicator {
+	border-color: #E8EBF7;
+}
+
+.indicator:before {
+	box-shadow: 1px -10px 00 #E8EBF7;
+}
+
+.indicator:after {
+	box-shadow: -1px -10px 00 #E8EBF7;
+}
