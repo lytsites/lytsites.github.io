@@ -60,8 +60,8 @@ def main():
     response = requests.get(START_URL, headers=headers)
     soup = BeautifulSoup(response.text, "lxml")
 
-    max_page = 100
-    # max_page = get_max_page(soup)
+    # max_page = 100
+    max_page = get_max_page(soup)
 
     for page in tqdm(range(1, max_page + 1), desc="Загрузка страниц"):
         url = BASE_URL.format(page)
