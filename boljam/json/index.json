@@ -1,7 +1,8 @@
 {
   "all": [
     "grouped_by_specialty_2025-06-11.json",
-    "grouped_by_specialty_2025-06-12.json"
+    "grouped_by_specialty_2025-06-12.json",
+    "grouped_by_specialty_2025-06-13.json"
   ],
-  "latest": "grouped_by_specialty_2025-06-12.json"
+  "latest": "grouped_by_specialty_2025-06-13.json"
 }
