@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="scripts/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/FBXLoader.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/MTLLoader.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/OBJLoader.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/GLTFLoader.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/libs/fflate.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/21.0.0/tween.umd.js" integrity="sha512-iPPs+A0ew4z+jybQ1r6HPj5b8zV8zaw6TpfGn/qqntA480gp6HDfUJGp1ni46LXrItwnTvYlg80h1NIkC4pf6g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/cannon.js/0.6.2/cannon.min.js" integrity="sha512-avLcnGxl5mqAX/wIKERdb1gFNkOLHh2W5JNCfJm5OugpEPBz7LNXJJ3BDjjwO00AxEY1MqdNjtEmiYhKC0ld7g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+	<title>ASYK ATU</title>
+
+	<style>
+		@font-face {
+			font-family: 'Bahnschrift';
+			src: '../fonts/Bahnschrift.ttf';
+		}
+
+		* {
+			padding: 0;
+			margin: 0;
+			box-sizing: border-box;
+			font-family: 'Bahnschrift';
+		}
+
+		.main {
+			padding: 40px;
+		}
+
+		.menu {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+
+		button {
+			display: block;
+			margin: 10px 0;
+			padding: 10px 0;
+			font-size: 16px;
+			width: 180px;
+		}
+
+		.modal {
+			display: none;
+			position: fixed;
+			z-index: 1;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			background-color: rgba(0,0,0,0.4);
+		}
+
+		.modal-content {
+			background-color: #fefefe;
+			margin: 15% auto;
+			padding: 20px;
+			border: 1px solid #888;
+			border-radius: 15px;
+			width: 60%;
+		}
+
+		.close {
+			color: #aaa;
+			float: right;
+			font-size: 28px;
+			font-weight: bold;
+		}
+
+		.close:hover,
+		.close:focus {
+			color: black;
+			text-decoration: none;
+			cursor: pointer;
+		}
+
+		.levels {
+			display: flex;
+		}
+
+		.level {
+			margin-top: 15px;
+			margin-right: 15px;
+			cursor: pointer;
+		}
+
+		.levels img {
+			width: 150px;
+			height: 150px;
+			background-position: 50% 50%;
+			background-size: cover;
+			border: 1px solid rgba(0, 0, 0, .5);
+			border-radius: 15px;
+		}
+
+		.leftCount, .rightCount {
+			position: absolute;
+			top: 15px;
+			font-size: 24px;
+			font-weight: bold;
+			visibility: hidden;
+		}
+
+		.leftCount {
+			left: 15px;
+			color: #ffff00;
+		}
+
+		.rightCount {;
+			color: #ff00ff;
+		}
+
+		button {
+			padding: 10px 20px;
+			font-size: 16px;
+			font-weight: bold;
+			text-transform: uppercase;
+			color: #ffffff;
+			background-color: #4CAF50;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+
+		button:hover {
+			background-color: #45a049;
+		}
+
+		button:focus {
+			outline: none;
+		}
+
+		button.toMenu {
+			width: 40px;
+			text-align: center;
+			padding-left: 0;
+			padding-right: 0;
+			position: absolute;
+			top: 40px;
+			left: 15px;
+		}
+
+		.images {
+			display: flex;
+			margin: 10% auto 0 auto;
+			width: 800px;
+		}
+
+		.images .image {
+			cursor: pointer;
+			transition: .1s ease;
+		}
+
+		.images .image.disabled {
+			opacity: .5;
+		}
+
+		.images .image:hover {
+			transform: scale(1.1);
+		}
+
+		.images img {
+			width: 200px;
+			height: 200px;
+		}
+
+	}
+
+	</style>
+
+</head>
+<body>
+
+	<button class="toMenu" data-to="main"><</button>
+
+	<div class="main">
+		<div class="images">
+			<div class="image">
+				<img src="images/common.jpg" alt="">
+				<div class="image-title">Обычный асык</div>
+			</div>
+			<div class="image">
+				<img src="images/rare.jpg" alt="">
+				<div class="image-title">Пластиковый асык</div>
+			</div>
+			<div class="image">
+				<img src="images/immortal.jpg" alt="">
+				<div class="image-title">Золотой асык</div>
+			</div>
+			<div class="image disabled">
+				<img src="images/disabled.jpg" alt="">
+				<div class="image-title">Не открытый асык</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="main.js" type="module"></script>
+
+</body>
+</html>
